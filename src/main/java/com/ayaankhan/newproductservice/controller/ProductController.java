@@ -27,4 +27,6 @@ public class ProductController {
     public Product getProductById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
+
+    // Function to Get All Products
 }
