@@ -29,23 +29,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getProductById(@PathVariable Long id) {
-
-        try{
-            ResponseEntity<Product> responseEntity = null;
-            Product product = productService.getProductById(id);
-            responseEntity = new ResponseEntity<>(product, HttpStatus.OK);
-            return responseEntity;
-
-        }
-        catch (Exception e){
-            ExceptionDto exceptionDto = new ExceptionDto();
-            exceptionDto.setErrormessage("Something went wrong");
-            exceptionDto.setResovle("Try connecting to safe network");
-
-
-            return new ResponseEntity<>(exceptionDto,HttpStatus.NOT_FOUND);
-        }
+    public Product getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
 
     }
 

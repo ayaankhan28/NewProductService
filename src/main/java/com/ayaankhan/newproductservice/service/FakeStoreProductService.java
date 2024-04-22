@@ -1,6 +1,7 @@
 package com.ayaankhan.newproductservice.service;
 
 import com.ayaankhan.newproductservice.dtos.FakeStoreProductDto;
+import com.ayaankhan.newproductservice.exceptions.ProductNotFound;
 import com.ayaankhan.newproductservice.models.Category;
 import com.ayaankhan.newproductservice.models.Product;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,12 @@ import java.util.ArrayList;
 public class FakeStoreProductService implements ProductService{
     @Override
     public Product getProductById(Long id) {
+
         RestTemplate restTemplate = new RestTemplate();
         FakeStoreProductDto fsDTO = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
+        if(fsDTO==null){
+            throw new ProductNotFound("Enter valid product ID");
+        }
         Product product = new Product();
         product.setId(fsDTO.getId());
         product.setTitle(fsDTO.getTitle());
